@@ -15,7 +15,8 @@ $('#form').on('submit', (event)=>{
       console.log('Failed!')
       console.log(error);
     }
-  });  
+  });
+  
   event.preventDefault();
 })
 
