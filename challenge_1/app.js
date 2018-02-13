@@ -7,6 +7,10 @@ var board = [
 var turn = 1;
 var turnCount = 0;
 
+var winCount ={
+  'X': 0,
+  'O': 0
+}
 
 var nonHorizontalWins = () => {
   return [
@@ -25,21 +29,24 @@ var player = () => {
 };
 
 var winCheck = (board)=>{
-  
-  for (var i = 0; i < board.length; i++) {
-    if(JSON.stringify(board[i]) === '[1,1,1]' || JSON.stringify(board[i]) === '[2,2,2]') {
-      document.getElementById('winner').innerHTML = 'Player ' + player() + ' Wins!';
-      reset();
-    }
-  }
 
   var nonHorizontal = nonHorizontalWins();
 
-  for(var i = 0; i < nonHorizontal.length; i++) {
-    if(JSON.stringify(nonHorizontal[i]) === '[1,1,1]' || JSON.stringify(board[i]) === '[2,2,2]') {
+  var winner = (line)=>{
+    if(JSON.stringify(line) === '[1,1,1]' || JSON.stringify(line) === '[2,2,2]') {
       document.getElementById('winner').innerHTML = 'Player ' + player() + ' Wins!';
+      winCount[player()]++;
+      document.getElementById('leader').innerHTML = 'X - ' + winCount['X'] + ' vs O - ' + winCount['O'];
       reset();
     }
+  }
+  
+  for (var i = 0; i < board.length; i++) {
+    winner(board[i]);
+  }
+
+  for(var i = 0; i < nonHorizontal.length; i++) {
+    winner(nonHorizontal[i]);
   }
   
   if (turnCount === 9) {
@@ -48,8 +55,8 @@ var winCheck = (board)=>{
   }
 };
 
-var append = (id)=>{
-  var coordinates = id.target.id.split('-');
+var append = (event)=>{
+  var coordinates = event.target.id.split('-');
   var row = coordinates[0];
   var col = coordinates[1];
   if (board[row][col]) {
@@ -58,11 +65,11 @@ var append = (id)=>{
   }
   if (turn) {
     board[row][col] = 1;
-    document.getElementById(id.target.id).innerHTML = 'X';
+    document.getElementById(event.target.id).innerHTML = 'X';
     turn = !turn;
   } else if (!turn) {
     board[row][col] = 2;
-    document.getElementById(id.target.id).innerHTML = 'O';
+    document.getElementById(event.target.id).innerHTML = 'O';
     turn = !turn;
   }
   turnCount++;
@@ -84,13 +91,9 @@ var reset = ()=>{
   }
 };
 
-document.getElementById('0-0').addEventListener('click', append);
-document.getElementById('0-1').addEventListener('click', append);
-document.getElementById('0-2').addEventListener('click', append);
-document.getElementById('1-0').addEventListener('click', append);
-document.getElementById('1-1').addEventListener('click', append);
-document.getElementById('1-2').addEventListener('click', append);
-document.getElementById('2-0').addEventListener('click', append);
-document.getElementById('2-1').addEventListener('click', append);
-document.getElementById('2-2').addEventListener('click', append);
+var spaces = document.getElementsByClassName('square');
+for (var i = 0; i < spaces.length; i++) {
+  var space = spaces[i];
+  space.addEventListener('click', append)
+};
 document.getElementById('reset').addEventListener('click', reset);
