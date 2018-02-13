@@ -1,10 +1,12 @@
 var board = [
-[0,0,0],
-[0,0,0],
-[0,0,0]
+  [0,0,0],
+  [0,0,0],
+  [0,0,0]
 ];
 
 var turn = 1;
+var turnCount = 0;
+
 
 var nonHorizontalWins = () => {
   return [
@@ -23,8 +25,6 @@ var player = () => {
 };
 
 var winCheck = (board)=>{
-
-  console.log(JSON.stringify(board))
   
   for (var i = 0; i < board.length; i++) {
     if(JSON.stringify(board[i]) === '[1,1,1]' || JSON.stringify(board[i]) === '[2,2,2]') {
@@ -42,6 +42,10 @@ var winCheck = (board)=>{
     }
   }
   
+  if (turnCount === 9) {
+    document.getElementById('winner').innerHTML = 'It\'s A Tie!';
+    reset();
+  }
 };
 
 var append = (id)=>{
@@ -61,11 +65,13 @@ var append = (id)=>{
     document.getElementById(id.target.id).innerHTML = 'O';
     turn = !turn;
   }
+  turnCount++;
   winCheck(board);
 };
 
 var reset = ()=>{
   turn = 1;
+  turnCount = 0;
   board = [
     [0,0,0],
     [0,0,0],
