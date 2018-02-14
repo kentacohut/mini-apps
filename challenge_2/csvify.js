@@ -18,10 +18,11 @@ const csvify = (obj)=>{
         temp.push(obj[headers[i]]);
       }
     }
-    obj.pid=count;
+    flatData.push(temp.join());
+
+    obj.pid=count; //sets parent id on parent obj
     count++; //increment for unique id
 
-    flatData.push(temp.join());
     if(obj.children){
       for (let j = 0; j < obj.children.length; j++) {
         searchData(obj.children[j], obj.pid);
