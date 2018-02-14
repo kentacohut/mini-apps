@@ -41,8 +41,8 @@ class App extends React.Component {
   	}
   }
 
-  checkWin(){
-
+  checkWin() {
+  	
   }
 
   render() {
