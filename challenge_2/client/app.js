@@ -9,14 +9,15 @@ $('#form').on('submit', (event)=>{
     contentType: 'application/json',
     success: (data)=>{
       console.log('Success!');
-      $('#csv').html(JSON.parse(data));
+      $('#csv').html('<h1>CSV Formatted Data</h1>' + JSON.parse(data));
+      $('#data').val('');
     },
     error: (error)=>{
       console.log('Failed!')
       console.log(error);
     }
   });
-  
+
   event.preventDefault();
 })
 
