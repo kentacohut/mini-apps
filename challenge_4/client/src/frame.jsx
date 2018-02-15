@@ -7,11 +7,18 @@ class Frame extends React.Component{
   }
   render(){
   	return(
-  		<div>
+  		<div className="frame" id={this.props.round}>
+  		<div className="first">
+  			{this.props.score[0]}
+  		</div>
+  		<div className="strike">
+  		</div>
+  		<div className="total">
+  			{this.props.score[0] + (this.props.score[1] || 0)}
+  		</div>
   		</div>
   		)
   }
 }
-
 
 export default Frame;

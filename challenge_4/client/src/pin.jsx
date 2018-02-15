@@ -1,19 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class Pin extends React.Component {
-	constructor(props){
-		super(props);
-		this.state = {
-			up: true,
-		}
-	}
-	render(){
+let Pin = ({pinNum, handleBowl})=>{
 		return(
-			<div className="pin">
+			<div className="pin" onClick={()=>handleBowl(pinNum)}>
+				{pinNum}
 			</div>
 			)
-	}
 }
 
 export default Pin;

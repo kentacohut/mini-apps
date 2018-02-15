@@ -3,18 +3,20 @@ import ReactDOM from 'react-dom';
 import Frame from './frame.jsx';
 
 
-class ScoreBoard extends React.Component {
-	constructor(props){
-		super(props);
-	}
-
-	render(){
+let ScoreBoard = ({scoreboard, total})=> {
 		return(
-			<div>
-
+			<div id="scoreboard">
+			{scoreboard.map((frame,index)=><Frame 
+				key={index}
+				round={index+1}
+				score={scoreboard[index]}
+				/>)}
+			<div id="total">
+			<h1>Total</h1>
+			{total}
+			</div>
 			</div>
 			)
-	}
 }
 
 export default ScoreBoard;

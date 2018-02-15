@@ -2,13 +2,32 @@ body {
 	background-color: blue;
 }
 
+#app {
+	width: 850px;
+	margin: auto;
+}
+
 .row {
+	width: 250px;
 	display: block;
+	margin: auto;
 }
 .pin {
+	border-style: solid;
 	display: inline-block;
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
+	background-color: white;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 50px;
+}
+
+.frame {
+	display: inline-block;
+	width: 75px;
+	height: 75px;
+	border-style: solid;
 	background-color: white;
 }
