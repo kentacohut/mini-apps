@@ -19,6 +19,7 @@ class App extends React.Component {
   }
 
   handleClick(column){
+    console.log(column)
   	let board = this.state.board;
   	let player = ()=>{
   		if(this.state.player){
@@ -28,6 +29,7 @@ class App extends React.Component {
   	for(let i = 5; i >= 0; i--) {
   		if(!board[i][column]) {
   			let space = ['#',i,'-',column].join('');
+        console.log(space)
   			board[i][column] = player();
   			if(player() === 1){
         		$(space).addClass('red');
@@ -42,13 +44,13 @@ class App extends React.Component {
   }
 
   checkWin() {
-  	
+
   }
 
   render() {
 		return (
-		<div>
-          <Board handleClick={this.handleClick.bind(this)}/>
+		<div id="board">
+          <Board handleClick={this.handleClick.bind(this)} board={this.state.board} player={this.state.player}/>
 		</div>
 		)
 	}
