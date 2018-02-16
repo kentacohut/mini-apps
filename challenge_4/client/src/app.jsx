@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Row from './row.jsx';
 import ScoreBoard from './scoreboard.jsx';
+import $ from 'jquery';
 
 class App extends React.Component {
 	constructor(props) {
@@ -52,6 +53,40 @@ class App extends React.Component {
 		this.setState({bowl: !this.state.bowl})
 	}
 
+	sendScore(score){
+		let name = prompt('Who dis?');
+		let postData ={name: name, score: score};
+		$.ajax({
+		    type: "POST",
+		    url: 'http://127.0.0.1:3000',
+		    data: JSON.stringify(postData),
+		    contentType: 'application/json',
+		    success: (data)=>{
+		      console.log('Success!');
+		      console.log(data);
+		    },
+		    error: (error)=>{
+		      console.log('Failed!')
+		      console.log(error);
+			}
+  		});
+	}
+
+	getScore(callback){
+		$.ajax({
+		    type: "GET",
+		    url: 'http://127.0.0.1:3000/score',
+		    success: (data)=>{
+		      console.log('Success!');
+		      callback(data);
+		    },
+		    error: (error)=>{
+		      console.log('Failed!')
+		      console.log(error);
+			}
+  		});
+	}
+
 	render() {
 		return (
 			<div>
@@ -67,6 +102,8 @@ class App extends React.Component {
 			scoreboard={this.state.scoreboard}
 			total={this.state.total}
 			/>
+			<button type="button" onClick={()=>{this.sendScore(this.state.total)}}>Send Score</button>
+			<button type="button" onClick={()=>{}}>Get Scores</button>
 			</div>
 			)
 	}
