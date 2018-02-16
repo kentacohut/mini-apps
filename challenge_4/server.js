@@ -12,7 +12,7 @@ app.post('/', (req, res)=>{
 })
 
 app.get('/score', (req, res)=>{
-  db.Score.find({}, (err, data)=>{
+  db.Score.find({}).select('name score board -_id').exec((err, data)=>{
     if(err){
       res.send(503, err);
     } else {
